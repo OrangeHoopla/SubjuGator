@@ -5,14 +5,19 @@ from mil_misc_tools import text_effects
 
 # Import missions here
 import square
-
+import buoy
+import align_path_marker
+import torpedos
+import bin_dropper
+import surface
+import start_gate
 
 fprint = text_effects.FprintFactory(title="AUTO_MISSION").fprint
 
 
 @txros.util.cancellableInlineCallbacks
-def do_mission(sub):
-    fprint("RUNNING MISSION", msg_color="blue")
+def do_mission_square(sub):
+    fprint("RUNNING SQUARE MISSION", msg_color="blue")
 
     # Chain 1 missions
     try:
@@ -24,7 +29,114 @@ def do_mission(sub):
     # Create a mission kill alarm and kill in the final area
     ab = yield TxAlarmBroadcaster.init(sub.nh, "mission-kill")
     yield ab.raise_alarm()
-    fprint("MISSION COMPLETE", msg_color="green")
+    fprint("SQUARE MISSION COMPLETE", msg_color="green")
+
+
+
+def do_mission_buoy(sub):
+    fprint("RUNNING BUOY MISSION", msg_color="blue")
+
+    # Chain 1 missions
+    try:
+        yield buoy.run(sub)
+    except Exception as e:
+        fprint("Error in Chain 1 missions!", msg_color="red")
+        print e
+
+    # Create a mission kill alarm and kill in the final area
+    ab = yield TxAlarmBroadcaster.init(sub.nh, "mission-kill")
+    yield ab.raise_alarm()
+    fprint("BUOY MISSION COMPLETE", msg_color="green")
+
+
+
+def do_mission_align(sub):
+    fprint("RUNNING ALIGN PATH MARKER MISSION", msg_color="blue")
+
+    # Chain 1 missions
+    try:
+        yield align_path_marker.run(sub)
+    except Exception as e:
+        fprint("Error in Chain 1 missions!", msg_color="red")
+        print e
+
+    # Create a mission kill alarm and kill in the final area
+    ab = yield TxAlarmBroadcaster.init(sub.nh, "mission-kill")
+    yield ab.raise_alarm()
+    fprint("ALIGN PATH MARKER MISSION COMPLETE", msg_color="green")
+
+
+
+def do_mission_start_gate(sub):
+    fprint("RUNNING START GATE MISSION", msg_color="blue")
+
+    # Chain 1 missions
+    try:
+        yield start_gate.run(sub)
+    except Exception as e:
+        fprint("Error in Chain 1 missions!", msg_color="red")
+        print e
+
+    # Create a mission kill alarm and kill in the final area
+    ab = yield TxAlarmBroadcaster.init(sub.nh, "mission-kill")
+    yield ab.raise_alarm()
+    fprint("START GATE MISSION COMPLETE", msg_color="green")
+
+
+
+def do_mission_torpedos(sub):
+    fprint("RUNNING TORPEDO MISSION", msg_color="blue")
+
+    # Chain 1 missions
+    try:
+        yield torpedos.run(sub)
+    except Exception as e:
+        fprint("Error in Chain 1 missions!", msg_color="red")
+        print e
+
+    # Create a mission kill alarm and kill in the final area
+    ab = yield TxAlarmBroadcaster.init(sub.nh, "mission-kill")
+    yield ab.raise_alarm()
+    fprint("TORPEDO MISSION COMPLETE", msg_color="green")
+
+
+
+def do_mission_bin_dropper(sub):
+    fprint("RUNNING SQUARE MISSION", msg_color="blue")
+
+    # Chain 1 missions
+    try:
+        yield bin_dropper.run(sub)
+    except Exception as e:
+        fprint("Error in Chain 1 missions!", msg_color="red")
+        print e
+
+    # Create a mission kill alarm and kill in the final area
+    ab = yield TxAlarmBroadcaster.init(sub.nh, "mission-kill")
+    yield ab.raise_alarm()
+    fprint("SQUARE MISSION COMPLETE", msg_color="green")
+
+
+
+def do_mission_surface(sub):
+    fprint("RUNNING SQUARE MISSION", msg_color="blue")
+
+    # Chain 1 missions
+    try:
+        yield surface.run(sub)
+    except Exception as e:
+        fprint("Error in Chain 1 missions!", msg_color="red")
+        print e
+
+    # Create a mission kill alarm and kill in the final area
+    ab = yield TxAlarmBroadcaster.init(sub.nh, "mission-kill")
+    yield ab.raise_alarm()
+    fprint("SQUARE MISSION COMPLETE", msg_color="green")
+
+
+
+
+
 
 
 @txros.util.cancellableInlineCallbacks
